@@ -83,6 +83,8 @@ public class solution {
     }
 
     public void printSolution(List<List<Integer>> num){
+
+        System.out.println("----------------------------------------------");
         for (int i = 0; i < num.size(); i++) {
                 for(int a =0; a < 4; a++){
                     for(int b = 0; b < 4; b++){
@@ -109,20 +111,23 @@ public class solution {
                     }
                 }
             }
+            System.out.println("----------------------------------------------");
         }
     
 
-    public void writetoFile(List<List<Integer>> num, int[] array, String nameFile){
+    public void writetoFile(List<List<Integer>> num, int[] array, String nameFile, double executionTime){
 
         int total = getSolutionTotal(num);
-
+    
         try {
+            
             FileWriter writeFile = new FileWriter(nameFile + ".txt");
             for(int idx = 0; idx < 4; idx++){
                 writeFile.write(array[idx] + " ");
             }
             writeFile.write("\n");
             writeFile.write("Total Solution: " + total + "\n");
+            writeFile.write("Execution Time: " + executionTime + "ms \n");
 
             for (int i = 0; i < num.size(); i++) {
                 for(int a =0; a < 4; a++){
