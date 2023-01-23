@@ -81,9 +81,10 @@ public class Main {
     
                     while (outToFile) {
                         if (toFile == 1) {
-                            System.out.println("Write name file: ");
+                            System.out.print("Write name file: ");
                             String inputNameFile = sc.nextLine();
                             permutation.writetoFile(ans, array, inputNameFile, duration);
+                            System.out.println("Succesfully make file");
                             outToFile = false;
                         } else if (toFile == 2) {
                             outToFile = false;
@@ -127,9 +128,10 @@ public class Main {
     
                     while (outtoFileRandom) {
                         if (toFile == 1) {
-                            System.out.println("Write name file: ");
+                            System.out.print("Write name file: ");
                             String inputNameFileRandom = sc.nextLine();
                             permutation.writetoFile(ansRandom, array, inputNameFileRandom, durationRandom);
+                            System.out.println("Succesfully make file");
                             outtoFileRandom = false;
                         } else if (toFile == 2) {
                             outtoFileRandom = false;

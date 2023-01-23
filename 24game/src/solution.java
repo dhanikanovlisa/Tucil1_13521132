@@ -25,22 +25,22 @@ public class solution {
 
     public List<List<Integer>> permute(int[] array) {
         List<List<Integer>> ans=new ArrayList<>();
-        List<Integer> ds=new ArrayList<>();
+        List<Integer> insideAns=new ArrayList<>();
         boolean freq[]=new boolean[array.length];
-        recursion(array,ds,ans,freq);
+        permuteNumbers(array,insideAns,ans,freq);
         return ans;
     }
-    public void recursion(int[] nums, List<Integer> ds,List<List<Integer>> ans,boolean freq[]){
-        if(ds.size()==nums.length){
-            ans.add(new ArrayList<>(ds));
+    public void permuteNumbers(int[] nums, List<Integer> insideAns,List<List<Integer>> ans,boolean freq[]){
+        if(insideAns.size()==nums.length){
+            ans.add(new ArrayList<>(insideAns));
             return;
         }
         for(int i=0;i<nums.length;i++){
             if(!freq[i]){
                 freq[i]=true;
-                ds.add(nums[i]);
-                recursion(nums,ds,ans,freq);
-                ds.remove(ds.size()-1);
+                insideAns.add(nums[i]);
+                permuteNumbers(nums, insideAns, ans, freq);
+                insideAns.remove(insideAns.size()-1);
                 freq[i]=false;
 
             }
