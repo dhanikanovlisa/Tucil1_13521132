@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileWriter;  
+import java.io.IOException;
 
 
 public class solution {
@@ -50,7 +52,7 @@ public class solution {
         
         int count = 0;
         for (int i = 0; i < num.size(); i++) {
-            for (int j = 0; j < num.get(i).size(); j++) {
+            
 
                 for(int a =0; a < 4; a++){
                     for(int b = 0; b < 4; b++){
@@ -75,46 +77,86 @@ public class solution {
                         }
                     }
                 }
-            }
         }
 
         return count;   
     }
 
-    public void printSolution(List<List<Double>> num){
+    public void printSolution(List<List<Integer>> num){
         for (int i = 0; i < num.size(); i++) {
-            for (int j = 0; j < num.get(i).size(); j++) {
-
                 for(int a =0; a < 4; a++){
                     for(int b = 0; b < 4; b++){
                         for(int c = 0; c < 4; c++){
                             
                             if (fOp(op[c], fOp(op[b], fOp(op[a], num.get(i).get(0), num.get(i).get(1)), num.get(i).get(2)), num.get(i).get(3)) == result){
-                                System.out.println("((" + num.get(i).get(0) +  num.get(i).get(1) + ")" + op[b] + num.get(i).get(2) + ")" + op[c] + num.get(i).get(3));
-                                System.out.println("");
+                                System.out.println("( ( " + num.get(i).get(0) + " " + op[a] + " " + num.get(i).get(1) + " ) " + op[b] + " " + num.get(i).get(2) + " ) " + op[c] + " " +  num.get(i).get(3));
                                 //(a op (b op c)) op d
                             }
                             if ( fOp(op[c], fOp(op[a], num.get(i).get(0), fOp(op[b], num.get(i).get(1), num.get(i).get(2))), num.get(i).get(3)) == result){
-                                System.out.println("(" + num.get(i).get(0) + op[a] + "(" + num.get(i).get(1) + op[b] + num.get(i).get(2) + "))" + op[c] + num.get(i).get(3));
-                                System.out.println("");
+                                System.out.println("( " + num.get(i).get(0) + " " + op[a] + " ( " + num.get(i).get(1) + " " + op[b] + " " + num.get(i).get(2) + " ) ) " + op[c] + " " +  num.get(i).get(3));
                             }
                             if ( fOp(op[b], fOp(op[a], num.get(i).get(0), num.get(i).get(1)), fOp(op[c], num.get(i).get(2), num.get(i).get(3))) == result){
-                                System.out.println("(" + num.get(i).get(0) + op[a] + num.get(i).get(1) + ")" + op[b] + "(" + num.get(i).get(2) + op[c] + num.get(i).get(3) + ")" );
-                                System.out.println("");
+                                System.out.println("( " + num.get(i).get(0) + " " + op[a] + " " + num.get(i).get(1) + " ) " + op[b] + " ( " + num.get(i).get(2) + " " + op[c] + " " + num.get(i).get(3) + " )" );
                             }
                             if ( fOp(op[a], num.get(i).get(0), fOp(op[c], fOp(op[b], num.get(i).get(1), num.get(i).get(2)), num.get(i).get(3))) == result){
-                                System.out.println( num.get(i).get(0) + op[a] + "((" + num.get(i).get(1) + op[b] + num.get(i).get(2) + ")" + op[c] + num.get(i).get(3) + ")");
-                                System.out.println(""); 
+                                System.out.println( num.get(i).get(0) + " " + op[a] + " ( ( " + num.get(i).get(1) + " " + op[b] + " " + num.get(i).get(2) + " ) " + op[c] + " " + num.get(i).get(3) + " )");
+                                
                             }
                             if ( fOp(op[a], num.get(i).get(0), fOp(op[b], num.get(i).get(1), fOp(op[c], num.get(i).get(2), num.get(i).get(3)))) == result){
-                                System.out.println( num.get(i).get(0) + op[a] + "(" + num.get(i).get(1) + op[b] + "(" + num.get(i).get(2) + op[c] + num.get(i).get(3) + "))");
-                                System.out.println("");
+                                System.out.println( num.get(i).get(0) + " " + op[a] + " ( " + num.get(i).get(1) + " " + op[b] + " ( " + num.get(i).get(2) + " " + op[c] + " " + num.get(i).get(3) + " ) )");
                             }
                         }
                     }
                 }
             }
         }
+    
+
+    public void writetoFile(List<List<Integer>> num, int[] array, String nameFile){
+
+        int total = getSolutionTotal(num);
+
+        try {
+            FileWriter writeFile = new FileWriter(nameFile + ".txt");
+            for(int idx = 0; idx < 4; idx++){
+                writeFile.write(array[idx] + " ");
+            }
+            writeFile.write("\n");
+            writeFile.write("Total Solution: " + total + "\n");
+
+            for (int i = 0; i < num.size(); i++) {
+                for(int a =0; a < 4; a++){
+                    for(int b = 0; b < 4; b++){
+                        for(int c = 0; c < 4; c++){
+                            
+                            if (fOp(op[c], fOp(op[b], fOp(op[a], num.get(i).get(0), num.get(i).get(1)), num.get(i).get(2)), num.get(i).get(3)) == result){
+                                writeFile.write("( ( " + num.get(i).get(0) + " " + op[a] + " " + num.get(i).get(1) + " ) " + op[b] + " " + num.get(i).get(2) + " ) " + op[c] + " " +  num.get(i).get(3) + "\n");
+                                //(a op (b op c)) op d
+                            }
+                            if ( fOp(op[c], fOp(op[a], num.get(i).get(0), fOp(op[b], num.get(i).get(1), num.get(i).get(2))), num.get(i).get(3)) == result){
+                                writeFile.write("( " + num.get(i).get(0) + " " + op[a] + " ( " + num.get(i).get(1) + " " + op[b] + " " + num.get(i).get(2) + " ) ) " + op[c] + " " +  num.get(i).get(3) + "\n");
+                            }
+                            if ( fOp(op[b], fOp(op[a], num.get(i).get(0), num.get(i).get(1)), fOp(op[c], num.get(i).get(2), num.get(i).get(3))) == result){
+                                writeFile.write("( " + num.get(i).get(0) + " " + op[a] + " " + num.get(i).get(1) + " ) " + op[b] + " ( " + num.get(i).get(2) + " " + op[c] + " " + num.get(i).get(3) + " )" + "\n");
+                            }
+                            if ( fOp(op[a], num.get(i).get(0), fOp(op[c], fOp(op[b], num.get(i).get(1), num.get(i).get(2)), num.get(i).get(3))) == result){
+                                writeFile.write( num.get(i).get(0) + " " + op[a] + " ( ( " + num.get(i).get(1) + " " + op[b] + " " + num.get(i).get(2) + " ) " + op[c] + " " + num.get(i).get(3) + " )"+ "\n");
+                                
+                            }
+                            if ( fOp(op[a], num.get(i).get(0), fOp(op[b], num.get(i).get(1), fOp(op[c], num.get(i).get(2), num.get(i).get(3)))) == result){
+                                writeFile.write( num.get(i).get(0) + " " + op[a] + " ( " + num.get(i).get(1) + " " + op[b] + " ( " + num.get(i).get(2) + " " + op[c] + " " + num.get(i).get(3) + " ) )" + "\n");
+                            }
+                        }
+                    }
+                }
+            }
+            writeFile.close();
+
+
+          } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+          }
     }
 
     

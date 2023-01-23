@@ -1,5 +1,4 @@
 import java.util.*;
-import java.io.*;
 import java.util.List;
 public class Main {
     
@@ -25,7 +24,7 @@ public class Main {
             if (menuChoice == 1){
 
                 boolean startInput = true;
-                boolean nextStage = true;
+                boolean outToFile = true;
                 while (startInput){
                     System.out.println("Please input 4 number ranging from 0-15:");
 
@@ -63,13 +62,29 @@ public class Main {
 
                 //System.out.println("kombinasi: \n");
                 solution permutation = new solution();
-                List<List<Integer>> coba = permutation.permute(array);
-                //System.out.println(coba);
-                int total = permutation.getSolutionTotal(coba);
+                List<List<Integer>> ans = permutation.permute(array);
+                int total = permutation.getSolutionTotal(ans);
                 System.out.println("Total solusi: " + total);
+                permutation.printSolution(ans);
+            
                 
-                System.out.println("Do you want to keep it as a file?: y/n");
-                String toFile = sc.nextLine();
+                System.out.println("Do you want to keep it as a file?");
+                System.out.println("1. Yes");
+                System.out.println("2. No");
+                System.out.println("Insert number: ");
+                int toFile = sc.nextInt();
+                sc.nextLine();
+
+                while(outToFile){
+                    if (toFile == 1){
+                        System.out.println("Write name file: ");
+                        String inputNameFile = sc.nextLine();
+                        permutation.writetoFile(ans, array, inputNameFile);
+                        outToFile = false;
+                    } else if (toFile == 2){
+                        outToFile = false;
+                    }
+                }
 
 
             
@@ -98,5 +113,6 @@ public class Main {
                 start = false;
             }
         }
+        sc.close();
     }
 }
