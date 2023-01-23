@@ -81,6 +81,7 @@ public class Main {
                         
                             if (toFile == 1) {
                                 System.out.print("Write name file: ");
+                                sc.nextLine();
                                 String inputNameFile = sc.nextLine();
                                 permutation.writetoFile(ans, array, inputNameFile, duration);
                                 System.out.println("Succesfully make file");
@@ -131,6 +132,7 @@ public class Main {
                         int toFile = sc.nextInt();
                         if (toFile == 1) {
                             System.out.print("Write name file: ");
+                            sc.nextLine();
                             String inputNameFileRandom = sc.nextLine();
                             permutation.writetoFile(ansRandom, array, inputNameFileRandom, durationRandom);
                             System.out.println("Succesfully make file");
