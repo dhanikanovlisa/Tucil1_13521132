@@ -1,0 +1,3 @@
+14 1 10 13 
+Total Solution: 0
+Execution Time: 182.0ms 
