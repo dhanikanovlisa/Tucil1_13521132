@@ -1,3 +1,0 @@
-10 10 4 10 
-Total Solution: 0
-Execution Time: 138.0ms 

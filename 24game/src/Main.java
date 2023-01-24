@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 
 public class Main {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         boolean start = true;
         Scanner sc = new Scanner(System.in);
@@ -20,8 +20,7 @@ public class Main {
             System.out.println("3. Exit");
             System.out.println("--------------------------------------------------------------");
 
-            
-            try{
+            try {
                 // Input Menu
                 System.out.print("Your choice: ");
                 int[] array = new int[4];
@@ -32,11 +31,11 @@ public class Main {
                     boolean outToFile = true;
                     while (startInput) {
                         System.out.println("Please input 4 number ranging from 0-15: ");
-    
+
                         for (int i = 0; i < 4; i++) {
                             array[i] = sc.nextInt();
                         }
-    
+
                         // Check
                         boolean found = true;
                         int j = 0;
@@ -46,56 +45,58 @@ public class Main {
                             } else {
                                 j++;
                             }
-    
+
                         }
                         if (found) {
                             startInput = false;
                         } else {
                             startInput = true;
                         }
-    
+
                     }
-    
+
                     long startTime = System.nanoTime();
                     solution permutation = new solution();
                     List<List<Integer>> ans = permutation.permute(array);
-                    int total = permutation.getSolutionTotal(ans);
+
+                    Set<Set<Integer>> ans2 = new HashSet(ans);
+                    List<List<Integer>> ans3 = new ArrayList(ans2);
+
+                    int total = permutation.getSolutionTotal(ans3);
                     System.out.println();
                     System.out.println("Total solusi: " + total);
-                    permutation.printSolution(ans);
-    
+                    permutation.printSolution(ans3);
+
                     long stopTime = System.nanoTime();
                     double duration = (stopTime - startTime) / 100000;
-    
+
                     System.out.println("Execution Time: " + duration + "ms");
                     System.out.println();
-    
-                    
+
                     while (outToFile) {
                         System.out.println("Do you want to keep it as a file?");
                         System.out.println("1. Yes");
                         System.out.println("2. No");
                         System.out.print("Insert number: ");
                         int toFile = sc.nextInt();
-                        
-                        
-                            if (toFile == 1) {
-                                System.out.print("Write name file: ");
-                                sc.nextLine();
-                                String inputNameFile = sc.nextLine();
-                                permutation.writetoFile(ans, array, inputNameFile, duration);
-                                System.out.println("Succesfully make file");
-                                outToFile = false;
-                            } else if (toFile == 2) {
-                                outToFile = false;
-                            } else {
-                                System.out.println("Please insert menu number between 1 - 2.\n");
-                            }
-                        
+
+                        if (toFile == 1) {
+                            System.out.print("Write name file: ");
+                            sc.nextLine();
+                            String inputNameFile = sc.nextLine();
+                            permutation.writetoFile(ans3, array, inputNameFile, duration);
+                            System.out.println("Succesfully make file");
+                            outToFile = false;
+                        } else if (toFile == 2) {
+                            outToFile = false;
+                        } else {
+                            System.out.println("Please insert menu number between 1 - 2.\n");
+                        }
+
                     }
-    
+
                 } else if (menuChoice == 2) {
-    
+
                     // Generate random number
                     Random rand = new Random();
                     boolean outtoFileRandom = true;
@@ -103,27 +104,27 @@ public class Main {
                         int randomNum = rand.nextInt(14) + 1;
                         array[i] = randomNum;
                     }
-    
+
                     System.out.println("Here are your numbers: ");
                     for (int i = 0; i < 4; i++) {
                         System.out.println(array[i]);
                     }
-    
+
                     long startTimeRandom = System.nanoTime();
                     solution permutation = new solution();
                     List<List<Integer>> ansRandom = permutation.permute(array);
                     int totalRandom = permutation.getSolutionTotal(ansRandom);
+                    Set<Set<Integer>> ansRandom2 = new HashSet(ansRandom);
+                    List<List<Integer>> ansRandom3 = new ArrayList(ansRandom2);
                     System.out.println("Total solusi: " + totalRandom);
-                    permutation.printSolution(ansRandom);
-    
+                    permutation.printSolution(ansRandom3);
+
                     long stopTimeRandom = System.nanoTime();
                     double durationRandom = (stopTimeRandom - startTimeRandom) / 100000;
-    
+
                     System.out.println("Execution Time: " + durationRandom + "ms");
                     System.out.println();
-    
-                    
-                    
+
                     while (outtoFileRandom) {
                         System.out.println("Do you want to keep it as a file?");
                         System.out.println("1. Yes");
@@ -134,28 +135,26 @@ public class Main {
                             System.out.print("Write name file: ");
                             sc.nextLine();
                             String inputNameFileRandom = sc.nextLine();
-                            permutation.writetoFile(ansRandom, array, inputNameFileRandom, durationRandom);
+                            permutation.writetoFile(ansRandom3, array, inputNameFileRandom, durationRandom);
                             System.out.println("Succesfully make file");
                             outtoFileRandom = false;
                         } else if (toFile == 2) {
                             outtoFileRandom = false;
-                        }
-                        else {
+                        } else {
                             System.out.println("Please insert menu number between 1 - 2.\n");
                         }
                     }
                 }
-    
+
                 else if (menuChoice == 3) {
                     start = false;
-                }
-                else {
+                } else {
                     System.out.println("Please insert menu number between 1 - 3.\n");
                 }
 
-            } catch ( InputMismatchException e){
+            } catch (InputMismatchException e) {
                 sc.nextLine();
-                System.out.println("Integers only, please."); 
+                System.out.println("Integers only, please.");
             }
         }
         sc.close();

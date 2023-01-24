@@ -30,7 +30,7 @@ public class solution {
         return ans;
     }
 
-    public void permuteNumbers(int[] nums, List<Integer> insideAns, List<List<Integer>> ans, boolean freq[]) {
+    public void permuteNumbers(int[] nums, List<Integer> insideAns, List<List<Integer>> ans, boolean freq[]){
         if (insideAns.size() == nums.length) {
             ans.add(new ArrayList<>(insideAns));
             return;
@@ -86,7 +86,6 @@ public class solution {
     }
 
     public void printSolution(List<List<Integer>> num) {
-
         System.out.println("----------------------------------------------");
         for (int i = 0; i < num.size(); i++) {
             for (int a = 0; a < 4; a++) {
@@ -133,7 +132,7 @@ public class solution {
         int total = getSolutionTotal(num);
 
         try {
-            
+
             FileWriter writeFile = new FileWriter(nameFile + ".txt");
             for (int idx = 0; idx < 4; idx++) {
                 writeFile.write(array[idx] + " ");
